@@ -1153,11 +1153,10 @@
     (magit-reflog-other           (:foreground cyan1))
     (magit-refname                (:foreground var))
 
-    (magit-sequence-head (:foreground capri1))
-    (magit-sequence-drop (:foreground red1))
-    (magit-sequence-part (:foreground yellow1))
-    (magit-sequence-stop (:inherit 'success))
-
+    (magit-sequence-head          (:foreground capri1))
+    (magit-sequence-drop          (:foreground red1))
+    (magit-sequence-part          (:foreground yellow1))
+    (magit-sequence-stop          (:inherit 'success))
     (magit-cherry-equivalent      (:foreground violet1))
     (magit-cherry-unmatched       (:foreground cyan1))
     (magit-bisect-good            (:foreground aquamarine1))
@@ -1166,10 +1165,9 @@
     (magit-signature-good         (:foreground spring-green3))
     (magit-signature-bad          (:foreground red0))
     (magit-signature-untrusted    (:foreground cyan1))
-
     (magit-popup-key              (:foreground keysym))
 
-    ;; Magit Transient
+    ;; Transient
     (transient-heading         (:foreground header))
     (transient-key             (:foreground keysym))
     (transient-argument        (:foreground hl))
@@ -1413,9 +1411,39 @@
     (imenu-list-entry-subalist-face-2 (:inherit 'imenu-list-entry-face-2 :bold bold))
     (imenu-list-entry-subalist-face-3 (:inherit 'imenu-list-entry-face-3 :bold bold))
 
-    ;; lsp-mode
-    ;; TODO:
+    ;; TODO lsp-mode
+    ;; (lsp-details-face)
+    ;; (lsp-face-highlight-read)
+    ;; (lsp-face-highlight-write)
+    ;; (lsp-face-rename)
+    ;; (lsp-inlay-hint-face)
+    ;; (lsp-inlay-hint-parameter-face)
+    ;; (lsp-inlay-hint-type-face)
+    ;; (lsp-installation-buffer-face)
+    ;; (lsp-installation-finished-buffer-face)
+    ;; (lsp-rename-placeholder-face)
+    ;; (lsp-signature-face)
+    ;; (lsp-signature-highlight-function-argument)
+    ;; (lsp-signature-posframe)
 
+    ;; TODO lsp-ui-mode
+    ;; (lsp-ui-doc-background)
+    ;; (lsp-ui-doc-header)
+    ;; (lsp-ui-doc-highlight-hover)
+    ;; (lsp-ui-doc-url)
+    ;; (lsp-ui-peek-filename)
+    ;; (lsp-ui-peek-footer)
+    ;; (lsp-ui-peek-header)
+    ;; (lsp-ui-peek-highlight)
+    ;; (lsp-ui-peek-line-number)
+    ;; (lsp-ui-peek-list)
+    ;; (lsp-ui-peek-peek)
+    ;; (lsp-ui-peek-selection)
+    ;; (lsp-ui-sideline-code-action)
+    ;; (lsp-ui-sideline-current-symbol)
+    ;; (lsp-ui-sideline-global)
+    ;; (lsp-ui-sideline-symbol)
+    ;; (lsp-ui-sideline-symbol-info)
 
     ;; Treemacs
     (treemacs-root-face             (:foreground keyword :height 1.2 :underline nil))
@@ -1864,13 +1892,13 @@
     (antlr-literal  (:inherit 'font-lock-string-face))
 
     ;; Anzu mode
-    (anzu-mode-line          (:foreground num))
-    (anzu-mode-line-no-match (:foreground err))
-    (anzu-replace-highlight  (:inherit 'lazy-highlight))
-    (anzu-replace-to         (:inherit 'isearch))
-    (anzu-match-1            (:foreground search1))
-    (anzu-match-2            (:foreground search2))
-    (anzu-match-3            (:foreground search3))
+    (anzu-mode-line          (:background line-bg1 :foreground num))
+    ;; (anzu-mode-line-no-match (:foreground err))
+    (anzu-replace-highlight  (:background bg0 :foreground kaolin-red :weight 'bold :strike-through t))
+    (anzu-replace-to         (:background bg0 :foreground kaolin-green))
+    ;; (anzu-match-1            (:foreground search1))
+    ;; (anzu-match-2            (:foreground search2))
+    ;; (anzu-match-3            (:foreground search3))
 
     ;; Avy
     (avy-background-face (:inherit 'font-lock-comment-face))
