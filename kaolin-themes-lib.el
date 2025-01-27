@@ -22,6 +22,23 @@
   "Return t if COLOR (e.g. hex string or name) is light."
   (>= (kaolin-themes--color-lab-luminance color) 50))
 
+(defun kaolin-blend (color1 color2 alpha)
+  "Blend COLOR1 and COLOR2 hex strings together by a coefficient ALPHA."
+  (when (and color1 color2)
+    (cond ((and color1 color2 (symbolp color1) (symbolp color2))
+           (kaolin-blend (symbol-name color1) (symbol-name color2) alpha))
+          ((or (listp color1) (listp color2))
+           (cl-loop for x in color1
+                    when (if (listp color2) (pop color2) color2)
+                    collect (kaolin-blend x it alpha)))
+          ((and (string-prefix-p "#" color1) (string-prefix-p "#" color2))
+           (apply (lambda (r g b) (format "#%02x%02x%02x" (* r 255) (* g 255) (* b 255)))
+                  (cl-loop for it    in (color-name-to-rgb color1)
+                           for other in (color-name-to-rgb color2)
+                           collect (+ (* alpha it) (* other (- 1 alpha))))))
+          (color1))))
+
+
 ;;; Code:
 (defconst kaolin-palette
   '(
@@ -534,6 +551,23 @@
     (kaolin-cyan    cyan3)
     (kaolin-white   fg1)
 
+    (embark-selected-fg (kaolin-blend kaolin-green fg0 0.6))
+    (embark-selected-bg (kaolin-blend kaolin-green bg0 0.1))
+    
+    (orderless-match-face-0-fg (kaolin-blend hl fg0 0.6))
+    (orderless-match-face-0-bg (kaolin-blend hl bg0 0.1))
+    (orderless-match-face-1-fg (kaolin-blend kaolin-magenta fg0 0.6))
+    (orderless-match-face-1-bg (kaolin-blend kaolin-magenta bg0 0.1))
+    (orderless-match-face-2-fg (kaolin-blend kaolin-green fg0 0.6))
+    (orderless-match-face-2-bg (kaolin-blend kaolin-green bg0 0.1))
+    (orderless-match-face-3-fg (kaolin-blend kaolin-yellow fg0 0.6))
+    (orderless-match-face-3-bg (kaolin-blend kaolin-yellow bg0 0.1))
+
+    (diredfl-flag-mark-line-bg (kaolin-blend  kaolin-yellow bg0 0.1))
+    (diredfl-flag-mark-bg (kaolin-blend kaolin-yellow bg0 0.2))
+    (diredfl-deletion-file-name-bg (kaolin-blend kaolin-red bg0 0.2))
+    (diredfl-deletion-bg (kaolin-blend kaolin-red bg0 0.2))
+
     (verbatim-fg   (if kaolin-themes-distinct-verbatim adaptive-fg kaolin-blue))
     (verbatim-bg   (if kaolin-themes-distinct-verbatim hl-bg 'unspecified)))
   )
@@ -690,8 +724,8 @@
     (diredfl-compressed-file-name   (:foreground comment))
     (diredfl-compressed-file-suffix (:foreground comment))
     (diredfl-date-time              (:foreground prep))
-    (diredfl-deletion               (:background 'unspecified :foreground err :underline underline))
-    (diredfl-deletion-file-name     (:background 'unspecified :foreground err :underline underline))
+    (diredfl-deletion               (:foreground kaolin-red :background diredfl-deletion-bg :weight 'bold))
+    (diredfl-deletion-file-name     (:foreground kaolin-red :background diredfl-deletion-file-name-bg))
     (diredfl-dir-heading            (:foreground header :weight 'bold :strike-through nil))
     (diredfl-dir-name               (:foreground keyword :weight 'bold :strike-through nil))
     (diredfl-dir-priv               (:foreground keyword :weight 'bold))
@@ -699,8 +733,8 @@
     (diredfl-executable-tag         (:foreground diff-rem))
     (diredfl-file-name              (:foreground fg1 :strike-through nil))
     (diredfl-file-suffix            (:foreground const))
-    (diredfl-flag-mark              (:background selection :foreground diff-mod))
-    (diredfl-flag-mark-line         (:background selection))
+    (diredfl-flag-mark              (:foreground kaolin-yellow :background diredfl-flag-mark-bg :weight 'bold))
+    (diredfl-flag-mark-line         (:background diredfl-flag-mark-line-bg))
     (diredfl-ignored-file-name      (:inherit 'shadow))
     (diredfl-link-priv              (:foreground functions))
     (diredfl-no-priv                (:foreground comment))
@@ -1925,7 +1959,7 @@
     (selectrum-prescient-secondary-highlight (:foreground search2))
 
     ;; Vertico
-    (vertico-current         (:background hl-line :foreground hl :bold t))
+    (vertico-current         (:background hl-line)); :foreground hl :bold t))
     (vertico-multiline       (:inherit 'shadow))
     (vertico-group-title     (:inherit 'shadow))
     (vertico-group-separator (:inherit 'shadow :strike-through t))
@@ -1934,10 +1968,25 @@
     (vertico-quick2          (:background bg2 :foreground search2 :weight 'bold))
 
     ;; Orderless
-    (orderless-match-face-0 (:foreground hl))
-    (orderless-match-face-1 (:foreground search1))
-    (orderless-match-face-2 (:foreground search2))
-    (orderless-match-face-3 (:foreground search3))
+    (orderless-match-face-0 (:foreground orderless-match-face-0-fg :background orderless-match-face-0-bg))
+    (orderless-match-face-1 (:foreground orderless-match-face-1-fg :background orderless-match-face-1-bg))
+    (orderless-match-face-2 (:foreground orderless-match-face-2-fg :background orderless-match-face-2-bg))
+    (orderless-match-face-3 (:foreground orderless-match-face-3-fg :background orderless-match-face-3-bg))
+
+    ;; Emabrk
+    (embark-selected (:foreground embark-selected-fg :background embark-selected-bg :extend t))
+    ;; (embark-collect-annotation
+    ;; (embark-collect-candidate)
+    ;; (embark-collect-group-separator)
+    ;; (embark-collect-group-title)
+    ;; (embark-keybinding)
+    ;; (embark-keybinding-repeat)
+    ;; (embark-keymap)
+    ;; (embark-target)
+    ;; (embark-verbose-indicator-documentation)
+    ;; (embark-verbose-indicator-shadowed)
+    ;; (embark-verbose-indicator-title)
+
 
     ;; tabbar
     (tabbar-default             (:background bg1 :foreground bg1 :height 1.0))
