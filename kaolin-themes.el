@@ -253,26 +253,6 @@ Use kaolin-valley-dark-theme.el as example."
                            (provide-theme ',kaolin-theme-name)
                            )))
 
-
-
-;;;###autoload
-(defun kaolin-blend (color1 color2 alpha)
-  "Blend COLOR1 and COLOR2 hex strings together by a coefficient ALPHA."
-  (when (and color1 color2)
-    (cond ((and color1 color2 (symbolp color1) (symbolp color2))
-           (kaolin-blend (symbol-name color1) (symbol-name color2) alpha))
-          ((or (listp color1) (listp color2))
-           (cl-loop for x in color1
-                    when (if (listp color2) (pop color2) color2)
-                    collect (kaolin-blend x it alpha)))
-          ((and (string-prefix-p "#" color1) (string-prefix-p "#" color2))
-           (apply (lambda (r g b) (format "#%02x%02x%02x" (* r 255) (* g 255) (* b 255)))
-                  (cl-loop for it    in (color-name-to-rgb color1)
-                           for other in (color-name-to-rgb color2)
-                           collect (+ (* alpha it) (* other (- 1 alpha))))))
-          (color1))))
-
-
 ;;;###autoload
 (defun kaolin-treemacs-theme ()
   "Enable kaolin-themes treemacs theme with all-the-icons package."
