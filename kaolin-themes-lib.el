@@ -1060,11 +1060,23 @@
     (company-preview-common           (:background bg2 :foreground diff-mod))
     (company-preview-search           (:inherit 'company-tooltip-search))
 
-    ;; corfu
-    (corfu-background (:background tooltip-bg))
-    (corfu-echo       (:foreground doc))
-    (corfu-current    (:background tooltip-hl-bg :foreground tooltip-hl-fg))
-    (corfu-border     (:background bg4))
+     ;; corfu
+    (corfu-bar     (:background bg2))
+    (corfu-border  (:background bg1))
+    (corfu-current (:background bg2 :foreground var :weight 'extrabold))
+    (corfu-default (:background bg1))
+
+    ;; (corfu-default (:inherit 'tooltip))
+    ;; (corfu-current (:background bg0 :foreground fg0))
+
+    ;; (corfu-bar)
+    ;; (corfu--bar)
+    ;; (corfu--cbar)
+    ;; (corfu-border)
+    ;; (corfu-current)
+    ;; (corfu-default)
+    ;; (corfu-deprecated)
+    ;; (corfu-annotations)
 
     ;; all-the-icons
     (all-the-icons-red      (:foreground red1))
@@ -1175,6 +1187,17 @@
     (transient-disabled-suffix (:background err :foreground bg1))
 
     ;; Flymake
+    ;; (flymake-note)
+    ;; (flymake-error)
+    ;; (flymake-warning)
+    ;; (flymake-note-echo)
+    ;; (flymake-error-echo)
+    ;; (flymake-warning-echo)
+    ;; (flymake-note-echo-at-eol)
+    ;; (flymake-error-echo-at-eol)
+    ;; (flymake-warning-echo-at-eol)
+    ;; (flymake-eol-information-face)
+    ;; (flymake-end-of-line-diagnostics-face)
     (flymake-note    (:underline (:style underline-style :color done)))
     (flymake-warning (:underline (:style underline-style :color warning)))
     (flymake-error   (:underline (:style underline-style :color err)))
