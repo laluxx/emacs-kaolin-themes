@@ -38,7 +38,6 @@
                            collect (+ (* alpha it) (* other (- 1 alpha))))))
           (color1))))
 
-
 ;;; Code:
 (defconst kaolin-palette
   '(
@@ -568,6 +567,9 @@
     (diredfl-deletion-file-name-bg (kaolin-blend kaolin-red bg0 0.2))
     (diredfl-deletion-bg (kaolin-blend kaolin-red bg0 0.2))
 
+    (highlight-bg (kaolin-blend link bg0 0.2))
+    (highlight-fg (kaolin-blend link fg0 0.6))
+
     (verbatim-fg   (if kaolin-themes-distinct-verbatim adaptive-fg kaolin-blue))
     (verbatim-bg   (if kaolin-themes-distinct-verbatim hl-bg 'unspecified)))
   )
@@ -785,7 +787,8 @@
     (jabber-roster-user-xa         (:foreground num))
 
     ;; Highlighting
-    (highlight                (:background hl-bg :foreground fg1))
+    ;; TODO Highlight buttons based on their fg colors
+    (highlight                (:background highlight-bg :foreground highlight-fg))
     (lazy-highlight           (:background bg4 :foreground hl))
     (hl-line                  (:background hl-line))
     (highlight-numbers-number (:foreground num))
